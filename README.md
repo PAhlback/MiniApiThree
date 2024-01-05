@@ -62,4 +62,4 @@ http://localhost:xxxx/search/people
 
 # ER Diagram
 
-![ER diagram](images/MiniprojektAPI ER-diagram.png)
+![ER diagram](~/Images/MiniprojektAPI ER-diagram.png)
