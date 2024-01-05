@@ -60,7 +60,7 @@ namespace MiniApiThree.Handlers
             return Results.Json(personViewModel);
         }
 
-        public static IResult AddInterest(ApplicationContext context, int personId, int interestId)
+        public static IResult ConnectPersonAndInterest(ApplicationContext context, int personId, int interestId)
         {
             Person? person = context.People
                 .Where(p => p.Id == personId)

@@ -9,7 +9,7 @@ namespace MiniApiThree.Handlers
     {
         public static string SearchInformation()
         {
-            string information = "To use search function, navigate to either \"search/people\", or \"search/interest\". " +
+            string information = "To use the search function, navigate to either \"search/people\", or \"search/interest\". " +
                 "Then send (POST) your search query as JSON with a single line \"searchQuery\": \"text\". " +
                 "Searching for a person searches for a first name, while " +
                 "interest will search for the title of the interest";
