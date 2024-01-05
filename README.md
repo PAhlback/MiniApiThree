@@ -59,3 +59,7 @@ for a first name, or search/interests to search for an interest title. Search by
 http://localhost:xxxx/search  
 http://localhost:xxxx/search/interests
 http://localhost:xxxx/search/people
+
+# ER Diagram
+
+[ER diagram](/MiniprojektAPI ER-diagram.png)
