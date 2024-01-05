@@ -19,6 +19,8 @@ namespace MiniApiThree.Handlers
 
         public static IResult SearchForPerson(ApplicationContext context, SearchDto query)
         {
+            // Uses the .StartsWith() method to search for a person with a first name that starts with the search query
+            // posted via json.
             List<PeopleViewModel> result = context.People
                 .Where(p => p.FirstName.StartsWith(query.SearchQuery))
                 .Select(p => new PeopleViewModel()
@@ -39,6 +41,7 @@ namespace MiniApiThree.Handlers
 
         public static IResult SearchForInterest(ApplicationContext context, SearchDto query)
         {
+            // Same as the SearchForPerson method above, but looks for interest title starting with the search query instead.
             List<InterestViewModel> result = context.Interests
                 .Where(i => i.Title.StartsWith(query.SearchQuery))
                 .Select(i => new InterestViewModel()

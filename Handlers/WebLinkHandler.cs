@@ -10,6 +10,8 @@ namespace MiniApiThree.Handlers
     {
         public static IResult AddLink(ApplicationContext context, int personId, int interestId, InterestLinkDto inputLink)
         {
+            // Adds a link to a person and an interest. First gets the correct person and interest, then creates a new InterestLink object.
+            // The person and interest is added to the InterestLink, and is then stored in the database.
             Person? person = context.People
                 .Where(p => p.Id == personId)
                 .Include(p => p.InterestLinks)
@@ -33,21 +35,10 @@ namespace MiniApiThree.Handlers
             }
             catch (Exception e)
             {
-                return Results.NotFound($"Failed at adding link with error message: {e}");
+                return Results.NotFound($"Failed to add link with error message: {e}");
             }
 
             context.SaveChanges();
-
-            //try
-            //{
-            //    person.InterestLinks.Add(link);
-            //    interest.InterestLinks.Add(link);
-            //}
-            //catch (Exception e)
-            //{
-            //    return Results.NotFound($"Failed at adding link with error message: {e}");
-            //}
-            //context.SaveChanges();
 
             return Results.StatusCode((int)HttpStatusCode.Created);
         }
