@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MiniApiThree.Data;
 using MiniApiThree.Models;
+using MiniApiThree.Models.DTOs;
+using MiniApiThree.Models.ErrorModels;
 using MiniApiThree.Models.ViewModels;
 using System.Net;
 
@@ -8,9 +10,28 @@ namespace MiniApiThree.Handlers
 {
     public class InterestHandler
     {
-        public static IResult PostInterest(ApplicationContext context, Interest interest)
+        public static IResult PostInterest(ApplicationContext context, InterestDto interestDto)
         {
-            // Saves a new interest to the database. Should implement some checks here, since one interest can exist multiple times.
+            // Saves a new interest to the database. Checks if the interest already exists, and ensures the interest DTO is correctly inputted.
+
+            if (context.Interests.Any(i => i.Title == interestDto.Title))
+            {
+                PostNewInterestErrorInterestExists error = new PostNewInterestErrorInterestExists(interestDto);
+                return Results.Conflict(error);
+            }
+
+            if(string.IsNullOrEmpty(interestDto.Title) || string.IsNullOrEmpty(interestDto.Description))
+            {
+                PostNewInterestError error = new PostNewInterestError();
+                return Results.BadRequest(error);
+            }
+
+            Interest? interest = new Interest()
+            {
+                Title = interestDto.Title,
+                Description = interestDto.Description
+            };
+
             context.Interests.Add(interest);
             context.SaveChanges();
             return Results.StatusCode((int)HttpStatusCode.Created);

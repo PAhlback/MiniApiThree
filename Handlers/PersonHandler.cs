@@ -33,7 +33,7 @@ namespace MiniApiThree.Handlers
 
             if(string.IsNullOrEmpty(personDto.FirstName) || string.IsNullOrEmpty(personDto.LastName) || string.IsNullOrEmpty(personDto.PhoneNo))
             {
-                AddNewPersonError error = new AddNewPersonError();
+                PostNewPersonError error = new PostNewPersonError();
                 return Results.BadRequest(error);
             }
 
