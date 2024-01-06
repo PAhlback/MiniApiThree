@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MiniApiThree.Data;
 using MiniApiThree.Models;
+using MiniApiThree.Models.DTOs;
+using MiniApiThree.Models.ErrorModels;
 using MiniApiThree.Models.ViewModels;
 using MiniApiThree.Models.ViewModels.PersonViewModels;
 using System.Net;
@@ -24,10 +26,24 @@ namespace MiniApiThree.Handlers
             return Results.Json(people);
         }
 
-        public static IResult PostPerson(ApplicationContext context, Person person)
+        public static IResult PostPerson(ApplicationContext context, PersonDto personDto)
         {
-            // Stores information about a person in the database. Currently does no checks on valid first and last name or phone number,
-            // which is something that would probably be a good idea to implement.
+            // Stores information about a person in the database. Added a check to ensure user posts all required information.
+            // Uses a special error class to return error information.
+
+            if(string.IsNullOrEmpty(personDto.FirstName) || string.IsNullOrEmpty(personDto.LastName) || string.IsNullOrEmpty(personDto.PhoneNo))
+            {
+                AddNewPersonError error = new AddNewPersonError();
+                return Results.BadRequest(error);
+            }
+
+            Person? person = new Person()
+            {
+                FirstName = personDto.FirstName,
+                LastName = personDto.LastName,
+                PhoneNo = personDto.PhoneNo
+            };
+
             context.People.Add(person);
             context.SaveChanges();
             return Results.StatusCode((int)HttpStatusCode.Created);
