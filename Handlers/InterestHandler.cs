@@ -12,7 +12,8 @@ namespace MiniApiThree.Handlers
     {
         public static IResult PostInterest(ApplicationContext context, InterestDto interestDto)
         {
-            // Saves a new interest to the database. Checks if the interest already exists, and ensures the interest DTO is correctly inputted.
+            // Saves a new interest to the database.
+            // Checks if the interest already exists, and ensures the interest DTO is correctly inputted.
 
             if (context.Interests.Any(i => i.Title == interestDto.Title))
             {
