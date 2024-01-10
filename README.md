@@ -62,6 +62,8 @@ http://localhost:xxxx/search/people
 
 # ER Diagram
 
+### ER Diagram
 ![ER diagram](/Images/ER-diagram.png)
 
+### Sequence Diagram
 ![Sequence diagram](/Images/Sekvensdiagram.png)
